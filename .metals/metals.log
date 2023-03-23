@@ -1,0 +1,14 @@
+2023.03.23 17:20:24 INFO  Started: Metals version 0.11.11 in workspace '/Users/leonardoplacanica/Documents/Accountable/crypto' for client Visual Studio Code 1.76.2.
+SLF4J: No SLF4J providers were found.
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See https://www.slf4j.org/codes.html#noProviders for further details.
+SLF4J: Class path contains SLF4J bindings targeting slf4j-api versions 1.7.x or earlier.
+SLF4J: Ignoring binding found at [jar:file:/Users/leonardoplacanica/Library/Caches/Coursier/v1/https/repo1.maven.org/maven2/com/outr/scribe-slf4j_2.13/3.11.0/scribe-slf4j_2.13-3.11.0.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See https://www.slf4j.org/codes.html#ignoredBindings for an explanation.
+2023.03.23 17:20:25 INFO  time: initialize in 0.7s
+2023.03.23 17:20:27 WARN  Build server is not auto-connectable.
+2023.03.23 17:20:27 WARN  no build tool detected in workspace '/Users/leonardoplacanica/Documents/Accountable/crypto'. The most common cause for this problem is that the editor was opened in the wrong working directory, for example if you use sbt then the workspace directory should contain build.sbt. 
+2023.03.23 17:20:50 WARN  no build target for: /Users/leonardoplacanica/Documents/Accountable/crypto/android/app/src/main/java/com/crypto/MainActivity.java
+mar 23, 2023 5:20:51 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 1
+2023.03.23 17:20:54 WARN  no build target for: /Users/leonardoplacanica/Documents/Accountable/crypto/android/app/src/main/java/com/crypto/MainActivity.java
