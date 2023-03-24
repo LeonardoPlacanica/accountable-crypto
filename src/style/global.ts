@@ -1,8 +1,13 @@
-import {StyleSheet} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 
 export const globalStyles = StyleSheet.create({
   h1: {
     fontSize: 24,
+    fontWeight: 'bold',
+    color: '#000',
+  },
+  h2: {
+    fontSize: 18,
     fontWeight: 'bold',
     color: '#000',
   },
@@ -23,3 +28,6 @@ export const globalStyles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+export const DEVICE_WIDTH = Dimensions.get('window').width;
+export const DEVICE_HEIGHT = Dimensions.get('window').height;

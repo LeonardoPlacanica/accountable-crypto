@@ -5,7 +5,6 @@ import CryptoListItem from './CryptoListItem';
 
 const CryptoList = () => {
   const coins = useAppSelector(state => state.crypto.coins);
-  console.log(coins);
   return (
     <ScrollView style={styles.container}>
       {coins.map(coin => (
@@ -27,8 +26,6 @@ const CryptoList = () => {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    elevation: 5,
-    borderRadius: 10,
     padding: 10,
   },
   image: {

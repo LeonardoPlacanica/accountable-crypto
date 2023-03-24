@@ -4,15 +4,16 @@ import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {globalStyles} from '../style/global';
 import {MainNavigatorParamList} from '../types/navigation';
+import {formatNumberToCurrency} from '../utils/format';
 
 type Props = {
   id: string;
   name: string;
   symbol: string;
-  price: number;
+  price?: number;
   rank: number;
-  percentChange24h: number;
-  marketCapChange24h: number;
+  percentChange24h?: number;
+  marketCapChange24h?: number;
 };
 
 type NavigationProp = NativeStackNavigationProp<MainNavigatorParamList, 'Home'>;
@@ -41,15 +42,15 @@ const CryptoListItem = ({
       </View>
       <View style={styles.row}>
         <Text>Price (USD):</Text>
-        <Text>{price}$</Text>
+        <Text>{price ? formatNumberToCurrency(price) + '$' : '-'}</Text>
       </View>
       <View style={styles.row}>
         <Text>Percentage Change (24 hours):</Text>
-        <Text>{percentChange24h}%</Text>
+        <Text>{percentChange24h ? percentChange24h + '%' : '-'}</Text>
       </View>
       <View style={styles.row}>
-        <Text>Percentage Change (7 days):</Text>
-        <Text>{marketCapChange24h}%</Text>
+        <Text>Market CAP (24 hours):</Text>
+        <Text>{marketCapChange24h ? marketCapChange24h + '%' : '-'}</Text>
       </View>
     </TouchableOpacity>
   );

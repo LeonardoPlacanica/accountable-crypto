@@ -12,3 +12,6 @@ SLF4J: See https://www.slf4j.org/codes.html#ignoredBindings for an explanation.
 mar 23, 2023 5:20:51 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
 WARNING: Unmatched cancel notification for request id 1
 2023.03.23 17:20:54 WARN  no build target for: /Users/leonardoplacanica/Documents/Accountable/crypto/android/app/src/main/java/com/crypto/MainActivity.java
+2023.03.23 21:33:12 INFO  Shutting down server
+2023.03.23 21:33:12 INFO  shutting down Metals
+2023.03.23 21:33:13 INFO  Exiting server

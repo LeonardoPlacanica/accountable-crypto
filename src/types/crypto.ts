@@ -11,6 +11,8 @@ export type CryptoType = {
   circulating_supply: number;
   market_cap: number;
   market_data: {
+    price_change_percentage_24h: number;
+    market_cap_change_percentage_24h: number;
     market_cap: {
       usd: number;
       eur: number;
@@ -21,8 +23,13 @@ export type CryptoType = {
       eur: number;
       gbp: number;
     };
+    current_price: {
+      usd: number;
+      eur: number;
+      gbp: number;
+    };
     circulating_supply: number;
-    total_supply?: number;
+    total_supply: number;
     ath: {
       usd: number;
       eur: number;
@@ -39,6 +46,45 @@ export type CryptoType = {
   };
 };
 
+export type CryptoDetailsMapType = {
+  [key: string]: CryptoType | undefined;
+};
+
+export type CryptoPricesMapType = {
+  [key: string]: CryptoPriceType | undefined;
+};
+
+export type CryptoSearchByKeyMapType = {
+  [key: string]: SearchCryptoType[] | undefined;
+};
+
+export type CryptoSearchMapType = {
+  [key: string]: SearchCryptoType | undefined;
+};
+
 export type CryptoReducerType = {
   coins: CryptoType[];
+  coinsDetails: CryptoDetailsMapType;
+  coinsPrices: CryptoPricesMapType;
+  coinsSearchByKey: CryptoSearchByKeyMapType;
+  coinsSearch: CryptoSearchMapType;
+};
+
+export type CryptoAPIPriceType = {
+  prices: [number, number][];
+};
+
+export type CryptoPriceType = {
+  date: number;
+  price: number;
+}[];
+
+export type SearchCryptoType = {
+  id: string;
+  name: string;
+  api_symbol: string;
+  symbol: string;
+  market_cap_rank: number;
+  thumb: string;
+  large: string;
 };
