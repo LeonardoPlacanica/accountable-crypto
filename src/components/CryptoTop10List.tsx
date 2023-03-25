@@ -1,12 +1,32 @@
 import React from 'react';
-import {StyleSheet, ScrollView} from 'react-native';
-import {useAppSelector} from '../features/store';
+import {
+  StyleSheet,
+  ScrollView,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+} from 'react-native';
+import {getTop10CryptoCoins} from '../features/CryptoSlice';
+import {useAppDispatch, useAppSelector} from '../features/store';
+import {isCloseToBottom} from '../utils/scroll';
 import CryptoListItem from './CryptoListItem';
 
 const CryptoList = () => {
+  const dispatch = useAppDispatch();
   const coins = useAppSelector(state => state.crypto.coins);
+  const page = useAppSelector(state => state.crypto.page);
+  const loading = useAppSelector(state => state.crypto.loading);
+
+  const onScroll = (_event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    if (isCloseToBottom(_event.nativeEvent) && !loading) {
+      dispatch(getTop10CryptoCoins(page + 1));
+    }
+  };
+
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      onScroll={onScroll}
+      scrollEventThrottle={400}>
       {coins.map(coin => (
         <CryptoListItem
           key={coin.id}

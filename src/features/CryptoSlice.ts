@@ -13,6 +13,9 @@ const initialState: CryptoReducerType = {
   coinsPrices: {},
   coinsSearchByKey: {},
   coinsSearch: {},
+  page: 1,
+  loading: false,
+  favorites: [],
 };
 
 export const bootstrap = createAsyncThunk(
@@ -24,8 +27,8 @@ export const bootstrap = createAsyncThunk(
 
 export const getTop10CryptoCoins = createAsyncThunk(
   'crypto/getTop10CryptoCoins',
-  async () => {
-    const res = await getTop10CryptoCoinGeckoApi();
+  async (page: number = 1) => {
+    const res = await getTop10CryptoCoinGeckoApi(page);
     return res;
   },
 );
@@ -54,9 +57,7 @@ export const getCryptoLast30DaysPriceById = createAsyncThunk(
 export const searchCryptoByName = createAsyncThunk(
   'crypto/searchCryptoByName',
   async (name: string) => {
-    console.log('searchCryptoByName', name);
     const res = await searchCryptoByNameCoinGeckoApi(name);
-    console.log(res);
     return res;
   },
 );
@@ -65,16 +66,28 @@ const cryptoSlice = createSlice({
   name: 'crypto',
   initialState,
   reducers: {
-    setSelectedOrganization: (state, action) => {
-      state.coins = action.payload;
+    toggleFromFavorites: (state, action) => {
+      if (!state.favorites.includes(action.payload)) {
+        state.favorites = [...state.favorites, action.payload];
+      } else {
+        state.favorites = state.favorites.filter(
+          item => item !== action.payload,
+        );
+      }
     },
   },
   extraReducers: builder => {
+    builder.addCase(getTop10CryptoCoins.pending, state => {
+      state.loading = true;
+    });
     builder.addCase(getTop10CryptoCoins.fulfilled, (state, action) => {
-      state.coins = action.payload;
+      state.coins = [...state.coins, ...action.payload];
+      state.page = action.meta.arg ?? 1;
+      state.loading = false;
     });
     builder.addCase(getTop10CryptoCoins.rejected, (state, action) => {
       console.log(action.error.message);
+      state.loading = false;
     });
     builder.addCase(getCryptoCoinById.fulfilled, (state, action) => {
       state.coinsDetails = {
@@ -112,6 +125,6 @@ const cryptoSlice = createSlice({
   },
 });
 
-export const {setSelectedOrganization} = cryptoSlice.actions;
+export const {toggleFromFavorites} = cryptoSlice.actions;
 
 export default cryptoSlice.reducer;

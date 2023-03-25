@@ -68,6 +68,9 @@ export type CryptoReducerType = {
   coinsPrices: CryptoPricesMapType;
   coinsSearchByKey: CryptoSearchByKeyMapType;
   coinsSearch: CryptoSearchMapType;
+  page: number;
+  loading: boolean;
+  favorites: string[];
 };
 
 export type CryptoAPIPriceType = {
