@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import {getTop10CryptoCoins} from '../features/CryptoSlice';
 import {useAppDispatch, useAppSelector} from '../features/store';
-import {CryptoType} from '../types/crypto';
+import {CryptoType, SearchCryptoType} from '../types/crypto';
 import {isCloseToBottom} from '../utils/scroll';
 import CryptoListItem from './CryptoListItem';
 
@@ -16,16 +16,27 @@ const CryptoFavoriteList = () => {
 
   const favoritesCoins = useAppSelector(state => state.crypto.favorites);
   const coinsCollection = useAppSelector(state => state.crypto.coins);
+  const coinsSearchCollection = useAppSelector(
+    state => state.crypto.coinsSearch,
+  );
   const page = useAppSelector(state => state.crypto.page);
   const loading = useAppSelector(state => state.crypto.loading);
 
   const mappedCoins = useMemo(
     () =>
-      favoritesCoins.map(id => coinsCollection.find(coin => coin.id === id)),
-    [favoritesCoins, coinsCollection],
+      favoritesCoins.map(
+        id =>
+          coinsCollection.find(coin => coin.id === id) ??
+          coinsSearchCollection[id],
+      ),
+    [favoritesCoins, coinsCollection, coinsSearchCollection],
   );
   const coins = useMemo(
-    () => mappedCoins.filter(coin => coin !== undefined) as CryptoType[],
+    () =>
+      mappedCoins.filter(coin => coin !== undefined) as (
+        | CryptoType
+        | SearchCryptoType
+      )[],
     [mappedCoins],
   );
 
@@ -45,11 +56,15 @@ const CryptoFavoriteList = () => {
           key={coin.id}
           id={coin.id}
           name={coin.name}
-          symbol={coin.image}
-          price={coin.current_price}
           rank={coin.market_cap_rank}
-          percentChange24h={coin.price_change_percentage_24h}
-          marketCapChange24h={coin.market_cap_change_percentage_24h}
+          symbol={
+            (coin as CryptoType).image ?? (coin as SearchCryptoType).thumb
+          }
+          price={(coin as CryptoType).current_price}
+          percentChange24h={(coin as CryptoType).price_change_percentage_24h}
+          marketCapChange24h={
+            (coin as CryptoType).market_cap_change_percentage_24h
+          }
         />
       ))}
     </ScrollView>

@@ -4,6 +4,7 @@ import {
   ScrollView,
   NativeScrollEvent,
   NativeSyntheticEvent,
+  ActivityIndicator,
 } from 'react-native';
 import {getTop10CryptoCoins} from '../features/CryptoSlice';
 import {useAppDispatch, useAppSelector} from '../features/store';
@@ -27,6 +28,7 @@ const CryptoList = () => {
       style={styles.container}
       onScroll={onScroll}
       scrollEventThrottle={400}>
+      {loading && <ActivityIndicator size="large" />}
       {coins.map(coin => (
         <CryptoListItem
           key={coin.id}

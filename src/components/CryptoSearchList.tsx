@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, ScrollView, Text} from 'react-native';
+import {StyleSheet, ScrollView, Text, ActivityIndicator} from 'react-native';
 import {searchCryptoByName} from '../features/CryptoSlice';
 import {useAppDispatch, useAppSelector} from '../features/store';
 import {globalStyles} from '../style/global';
@@ -18,6 +18,7 @@ const CryptoList = ({text}: Props) => {
   const keys = Object.keys(
     useAppSelector(state => state.crypto.coinsSearchByKey),
   );
+  const loading = useAppSelector(state => state.crypto.loading);
 
   useEffect(() => {
     if (!keys.includes(text)) {
@@ -27,6 +28,7 @@ const CryptoList = ({text}: Props) => {
 
   return (
     <ScrollView style={styles.container}>
+      {loading && <ActivityIndicator size="large" />}
       {results.map(coin => (
         <CryptoListItem
           key={coin.id}
@@ -36,7 +38,7 @@ const CryptoList = ({text}: Props) => {
           rank={coin.market_cap_rank}
         />
       ))}
-      {results.length === 0 && (
+      {results.length === 0 && !loading && (
         <Text style={[globalStyles.h2, globalStyles.margin]}>
           No results found
         </Text>

@@ -70,9 +70,10 @@ const Crypto = () => {
           price={coin?.current_price}
           percentChange24h={coin?.price_change_percentage_24h}
           marketCapChange24h={coin?.market_cap_change_percentage_24h}
+          disableNavigation
         />
         {loading ? (
-          <ActivityIndicator size="large" color="#0000ff" />
+          <ActivityIndicator size="large" />
         ) : (
           <>
             <Text style={[globalStyles.h2, globalStyles.margin]}>

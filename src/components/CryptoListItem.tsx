@@ -15,6 +15,7 @@ type Props = {
   rank: number;
   percentChange24h?: number;
   marketCapChange24h?: number;
+  disableNavigation?: boolean;
 };
 
 type NavigationProp = NativeStackNavigationProp<MainNavigatorParamList, 'Home'>;
@@ -27,6 +28,7 @@ const CryptoListItem = ({
   percentChange24h,
   marketCapChange24h,
   rank,
+  disableNavigation = false,
 }: Props) => {
   const navigation = useNavigation<NavigationProp>();
 
@@ -35,7 +37,10 @@ const CryptoListItem = ({
   };
 
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={onPress}
+      disabled={disableNavigation}>
       <View style={[styles.row, globalStyles.marginVertical]}>
         <Text style={styles.rank}>{rank}</Text>
         <CryproFavoriteButton id={id} />

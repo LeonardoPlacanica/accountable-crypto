@@ -107,6 +107,9 @@ const cryptoSlice = createSlice({
     builder.addCase(getCryptoLast30DaysPriceById.rejected, (state, action) => {
       console.log(action.error.message);
     });
+    builder.addCase(searchCryptoByName.pending, state => {
+      state.loading = true;
+    });
     builder.addCase(searchCryptoByName.fulfilled, (state, action) => {
       state.coinsSearchByKey = {
         ...state.coinsSearchByKey,
@@ -118,9 +121,11 @@ const cryptoSlice = createSlice({
           [coin.id]: coin,
         };
       }
+      state.loading = false;
     });
     builder.addCase(searchCryptoByName.rejected, (state, action) => {
       console.log(action.error.message);
+      state.loading = false;
     });
   },
 });
