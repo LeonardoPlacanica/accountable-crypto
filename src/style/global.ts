@@ -11,6 +11,11 @@ export const globalStyles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000',
   },
+  link: {
+    color: '#000',
+    textDecorationLine: 'underline',
+    fontSize: 16,
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',

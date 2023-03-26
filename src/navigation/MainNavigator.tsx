@@ -7,6 +7,7 @@ import CryptoDetails from '../pages/CryptoDetails';
 import {useAppDispatch} from '../features/store';
 import {bootstrap} from '../features/CryptoSlice';
 import {MainNavigatorParamList} from '../types/navigation';
+import Favorites from '../pages/Favorites';
 
 const Stack = createNativeStackNavigator<MainNavigatorParamList>();
 
@@ -22,6 +23,7 @@ const MainNavigator = () => {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="CryptoDetails" component={CryptoDetails} />
+        <Stack.Screen name="Favorites" component={Favorites} />
       </Stack.Navigator>
     </NavigationContainer>
   );

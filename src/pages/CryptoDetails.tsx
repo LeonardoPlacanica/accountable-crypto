@@ -56,8 +56,6 @@ const Crypto = () => {
     );
   }
 
-  console.log(coinDetails);
-
   return (
     <SafeAreaView style={globalStyles.container}>
       <Text style={[globalStyles.h1, globalStyles.margin]}>
