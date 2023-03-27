@@ -5,9 +5,11 @@ import {
   NativeScrollEvent,
   NativeSyntheticEvent,
   ActivityIndicator,
+  Text,
 } from 'react-native';
 import {getTop10CryptoCoins} from '../features/CryptoSlice';
 import {useAppDispatch, useAppSelector} from '../features/store';
+import {globalStyles} from '../style/global';
 import {isCloseToBottom} from '../utils/scroll';
 import CryptoListItem from './CryptoListItem';
 
@@ -16,6 +18,7 @@ const CryptoList = () => {
   const coins = useAppSelector(state => state.crypto.coins);
   const page = useAppSelector(state => state.crypto.page);
   const loading = useAppSelector(state => state.crypto.loading);
+  const error = useAppSelector(state => state.crypto.error);
 
   const onScroll = (_event: NativeSyntheticEvent<NativeScrollEvent>) => {
     if (isCloseToBottom(_event.nativeEvent) && !loading) {
@@ -29,6 +32,11 @@ const CryptoList = () => {
       onScroll={onScroll}
       scrollEventThrottle={400}>
       {loading && <ActivityIndicator size="large" />}
+      {error && !loading && (
+        <Text style={globalStyles.error}>
+          There was an error loading coins details
+        </Text>
+      )}
       {coins.map(coin => (
         <CryptoListItem
           key={coin.id}

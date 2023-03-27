@@ -16,6 +16,7 @@ const initialState: CryptoReducerType = {
   page: 1,
   loading: false,
   favorites: [],
+  error: false,
 };
 
 export const bootstrap = createAsyncThunk(
@@ -78,6 +79,7 @@ const cryptoSlice = createSlice({
   },
   extraReducers: builder => {
     builder.addCase(getTop10CryptoCoins.pending, state => {
+      state.error = false;
       state.loading = true;
     });
     builder.addCase(getTop10CryptoCoins.fulfilled, (state, action) => {
@@ -85,8 +87,8 @@ const cryptoSlice = createSlice({
       state.page = action.meta.arg ?? 1;
       state.loading = false;
     });
-    builder.addCase(getTop10CryptoCoins.rejected, (state, action) => {
-      console.log(action.error.message);
+    builder.addCase(getTop10CryptoCoins.rejected, state => {
+      state.error = true;
       state.loading = false;
     });
     builder.addCase(getCryptoCoinById.fulfilled, (state, action) => {
@@ -95,8 +97,8 @@ const cryptoSlice = createSlice({
         [action.payload.id]: action.payload,
       };
     });
-    builder.addCase(getCryptoCoinById.rejected, (state, action) => {
-      console.log(action.error.message);
+    builder.addCase(getCryptoCoinById.rejected, state => {
+      state.error = true;
     });
     builder.addCase(getCryptoLast30DaysPriceById.fulfilled, (state, action) => {
       state.coinsPrices = {
@@ -104,10 +106,11 @@ const cryptoSlice = createSlice({
         [action.meta.arg]: action.payload,
       };
     });
-    builder.addCase(getCryptoLast30DaysPriceById.rejected, (state, action) => {
-      console.log(action.error.message);
+    builder.addCase(getCryptoLast30DaysPriceById.rejected, state => {
+      state.error = true;
     });
     builder.addCase(searchCryptoByName.pending, state => {
+      state.error = false;
       state.loading = true;
     });
     builder.addCase(searchCryptoByName.fulfilled, (state, action) => {
@@ -123,8 +126,8 @@ const cryptoSlice = createSlice({
       }
       state.loading = false;
     });
-    builder.addCase(searchCryptoByName.rejected, (state, action) => {
-      console.log(action.error.message);
+    builder.addCase(searchCryptoByName.rejected, state => {
+      state.error = true;
       state.loading = false;
     });
   },

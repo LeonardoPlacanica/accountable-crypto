@@ -20,6 +20,9 @@ export const globalStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  error: {
+    color: 'red',
+  },
   margin: {
     margin: 10,
   },

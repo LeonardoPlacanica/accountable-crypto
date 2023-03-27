@@ -35,6 +35,7 @@ const Crypto = () => {
   const coinPriceHistory = useAppSelector(
     state => state.crypto.coinsPrices[route.params.id],
   );
+  const error = useAppSelector(state => state.crypto.error);
   const loading = coinDetails === undefined || coinPriceHistory === undefined;
 
   useEffect(() => {
@@ -72,9 +73,13 @@ const Crypto = () => {
           marketCapChange24h={coin?.market_cap_change_percentage_24h}
           disableNavigation
         />
-        {loading ? (
-          <ActivityIndicator size="large" />
-        ) : (
+        {loading && !error && <ActivityIndicator size="large" />}
+        {error && (
+          <Text style={globalStyles.error}>
+            There was an error loading coin details
+          </Text>
+        )}
+        {!loading && !error && (
           <>
             <Text style={[globalStyles.h2, globalStyles.margin]}>
               Price Chart (USD)

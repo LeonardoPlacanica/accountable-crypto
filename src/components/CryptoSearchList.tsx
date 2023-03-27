@@ -19,6 +19,7 @@ const CryptoList = ({text}: Props) => {
     useAppSelector(state => state.crypto.coinsSearchByKey),
   );
   const loading = useAppSelector(state => state.crypto.loading);
+  const error = useAppSelector(state => state.crypto.error);
 
   useEffect(() => {
     if (!keys.includes(text)) {
@@ -29,6 +30,11 @@ const CryptoList = ({text}: Props) => {
   return (
     <ScrollView style={styles.container}>
       {loading && <ActivityIndicator size="large" />}
+      {error && !loading && (
+        <Text style={globalStyles.error}>
+          There was an error loading coins details
+        </Text>
+      )}
       {results.map(coin => (
         <CryptoListItem
           key={coin.id}

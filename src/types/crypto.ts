@@ -70,6 +70,7 @@ export type CryptoReducerType = {
   coinsSearch: CryptoSearchMapType;
   page: number;
   loading: boolean;
+  error: boolean;
   favorites: string[];
 };
 
